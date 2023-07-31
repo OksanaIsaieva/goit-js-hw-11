@@ -1,0 +1,35 @@
+.search-form {
+
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*TODO: border or shadow*/
+.gallery .photo-card {
+    width: 25%;
+    flex: 1 1 25%;
+    margin: 15px 0;
+    box-shadow: 1px 1px 5px #999;
+    overflow: hidden;
+}
+
+.gallery .photo-card img {
+    width: 100%;
+}
+
+.gallery .photo-card .info {
+    display: flex;
+    flex-wrap: wrap;
+}
+.gallery .photo-card .info .info-item {
+    width: 25%;
+    flex: 1 1 25%;
+    text-align: center;
+    padding: 5px;
+}
+.gallery .photo-card .info .info-item b {
+    display: block;
+}
