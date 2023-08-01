@@ -11,9 +11,9 @@ const gallery = document.querySelector('.gallery');
 const loadMore = document.querySelector('.load-more');
 
 let page = 1;
-const perPage = 100;
+const perPage = 40;
 
-loadMore.style.display = 'none';
+// loadMore.style.display = 'none';
 
 const search = async (phrase) => {
     const response = await fetch("https://pixabay.com/api/?key="+apiKey+"&q="+phrase+"&image_type=photo&orientation=horizontal&safesearch=true&per_page="+perPage+"&page="+page);
@@ -27,21 +27,21 @@ const processData = async () => {
     const data = await search(searchQuery.value.trim(), 1);
     console.log(data);
     
-        if (typeof data.hits == 'undefined' || data.hits.length == 0) {
-            Notiflix.Notify.warning("Sorry, there are no images matching your search query. Please try again.");
-            return false;
-        }
+    if (typeof data.hits == 'undefined' || data.hits.length == 0) {
+        Notiflix.Notify.warning("Sorry, there are no images matching your search query. Please try again.");
+        return false;
+    }
     
-        data.hits.forEach((item) => {
-            gallery.insertAdjacentHTML('beforeend', '<div class="photo-card">' +
-        '<img src="'+item.webformatURL+'" alt="'+item.tags+'" loading="lazy" />' +
-        '<div class="info">' +
-        '<p class="info-item"><b>Likes</b>'+item.likes+'</p>' +
-          '<p class="info-item"><b>Views</b>'+item.views+'</b></p>' + 
-          '<p class="info-item"><b>Comments</b>'+item.comments+'</b></p>' + 
-          '<p class="info-item"><b>Downloads</b>'+item.downloads+'</p>' +
-        '</div></div>');
-        });
+    data.hits.forEach((item) => {
+        gallery.insertAdjacentHTML('beforeend', '<div class="photo-card">' +
+    '<div class="image"><img src="'+item.webformatURL+'" alt="'+item.tags+'" loading="lazy" /></div>' +
+    '<div class="info">' +
+    '<p class="info-item"><b>Likes</b>'+item.likes+'</p>' +
+        '<p class="info-item"><b>Views</b>'+item.views+'</b></p>' + 
+        '<p class="info-item"><b>Comments</b>'+item.comments+'</b></p>' + 
+        '<p class="info-item"><b>Downloads</b>'+item.downloads+'</p>' +
+    '</div></div>');
+    });
 
     if (page >= Math.floor(data.totalHits / perPage)) {
         Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
