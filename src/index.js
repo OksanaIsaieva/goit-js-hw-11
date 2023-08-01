@@ -16,8 +16,19 @@ const perPage = 40;
 // loadMore.style.display = 'none';
 
 const search = async (phrase) => {
-    const response = await fetch("https://pixabay.com/api/?key="+apiKey+"&q="+phrase+"&image_type=photo&orientation=horizontal&safesearch=true&per_page="+perPage+"&page="+page);
-    return await response.json();
+    const response =  await axios.get('https://pixabay.com/api/', {
+        params: {
+            key: apiKey,
+            q: phrase,
+            image_type: "photo",
+            orientation: "horizontal",
+            safesearch: "true",
+            per_page: perPage,
+            page: page
+        }
+      });  
+    // const response = await fetch("?key="+apiKey+"&q="+phrase+"&image_type=photo&orientation=horizontal&safesearch=true&per_page="+perPage+"&page="+page);
+    return await response.data;
 };
 
 const processData = async () => {
